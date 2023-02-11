@@ -10,16 +10,32 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int count = 0;
+  bool get isEmpty => count == 0;
   void decrement() {
-    print('Decrement');
+    setState(() {
+      count--;
+    });
+  }
+
+  void increment() {
+    setState(() {
+      count++;
+    });
   }
 
   @override
@@ -38,9 +54,9 @@ class HomePage extends StatelessWidget {
                 letterSpacing: 3),
           ),
           const SizedBox(height: 32),
-          const Text(
-            '0',
-            style: TextStyle(
+          Text(
+            '$count',
+            style: const TextStyle(
                 fontSize: 100,
                 color: Color(0xffd3bc8e),
                 fontWeight: FontWeight.w800),
@@ -50,9 +66,9 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
-                onPressed: decrement,
+                onPressed: isEmpty ? null : decrement,
                 style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xff5f5649),
+                    backgroundColor: isEmpty ? Colors.white.withOpacity(0.2) : const Color(0xff5f5649),
                     fixedSize: const Size(100, 100),
                     primary: Colors.pink,
                     shape: RoundedRectangleBorder(
@@ -68,9 +84,9 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(width: 32),
               TextButton(
-                onPressed: decrement,
+                onPressed: increment,
                 style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xff5f5649),
+                    backgroundColor:  const Color(0xff5f5649),
                     fixedSize: const Size(100, 100),
                     primary: Colors.green,
                     shape: RoundedRectangleBorder(
