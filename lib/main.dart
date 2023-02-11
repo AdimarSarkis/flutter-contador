@@ -5,64 +5,89 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-      ),
-      home: const MyHomePage(title: 'Contador de Pessoas'),
+    return const MaterialApp(
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void decrement() {
+    print('Decrement');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      backgroundColor: const Color(0xff1c1c22),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Pode Entrar',
+            style: TextStyle(
+                fontSize: 30,
+                color: Color(0xffd3bc8e),
+                fontWeight: FontWeight.w700,
+                letterSpacing: 3),
+          ),
+          const SizedBox(height: 32),
+          const Text(
+            '0',
+            style: TextStyle(
+                fontSize: 100,
+                color: Color(0xffd3bc8e),
+                fontWeight: FontWeight.w800),
+          ),
+          const SizedBox(height: 32),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: decrement,
+                style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xff5f5649),
+                    fixedSize: const Size(100, 100),
+                    primary: Colors.pink,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    )),
+                child: const Text(
+                  '-',
+                  style: TextStyle(
+                    fontSize: 50,
+                    color: Color(0xffd3bc8e),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 32),
+              TextButton(
+                onPressed: decrement,
+                style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xff5f5649),
+                    fixedSize: const Size(100, 100),
+                    primary: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    )),
+                child: const Text(
+                  '+',
+                  style: TextStyle(
+                    fontSize: 50,
+                    color: Color(0xffd3bc8e),
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
